@@ -1,0 +1,19 @@
+Place the following image files in `src/assets`:
+
+- `grace.png` — Nyaboke Grace (used in hero)
+- `nemo.jpeg` — project "Nemo" (Works card 1)
+- `shieldher.jpeg` — project "ShieldHer" (Works card 2)
+- `siwolo.jpg` — project "Siwolo" (Works card 3)
+- `quote.png` — optional image containing a quote (Works card 4). If you prefer, omit this and the app will show a text block instead.
+- `project-1.jpg`, `project-2.jpg`, `project-3.jpg` — fallback images for remaining cards.
+
+After adding these files, run:
+
+```bash
+npm install
+go mod tidy ./backend
+npm run dev
+go run ./backend
+```
+
+If you'd like me to map different images to specific project slots, tell me which filename to use for which Project (1–8). Otherwise I'll use the mapping above.
