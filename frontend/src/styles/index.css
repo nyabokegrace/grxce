@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sketch-charcoal: #1C1C1C;
+  --paper-bg: #F4F1EA;
+  --paper-card: rgba(254, 252, 248, 0.9);
+  --margin-red: rgba(224, 93, 93, 0.28);
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--paper-bg);
+  color: var(--sketch-charcoal);
+  font-family: 'Patrick Hand', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================================================
+   1. PREMIUM GRAINY PAPER FIBER OVERLAY
+   ========================================================= */
+
+/* Authentic sketchbook paper grain fiber overlay */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  opacity: 0.065;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+}
+
+/* Fibrous paper tooth & subtle edge vignette */
+body::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  opacity: 0.04;
+  background: 
+    radial-gradient(ellipse at center, transparent 45%, rgba(60, 40, 20, 0.3) 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.015) 2px, rgba(0, 0, 0, 0.015) 4px);
+  mix-blend-mode: multiply;
+}
+
+/* Authentic sketchbook spine / margin line on large screens */
+.sketchbook-spine {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 2rem;
+  width: 2px;
+  background: var(--margin-red);
+  z-index: 10;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1280px) {
+  .sketchbook-spine {
+    display: block;
+  }
+}
+
+.binder-hole {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(28, 28, 28, 0.35);
+  background: #E8E2D2;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.25);
+}
+
+/* =========================================================
+   2. ASYMMETRICAL HAND-DRAWN BORDERS & SKETCH CARDS
+   ========================================================= */
+
+/* Primary hand-drawn card with 3px solid charcoal stroke */
+.hand-card {
+  border: 3px solid #1C1C1C;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  background: var(--paper-card);
+  box-shadow: 3px 4px 0px #1C1C1C;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+  position: relative;
+}
+
+.hand-card:hover {
+  transform: translateY(-2px) rotate(-0.2deg);
+  box-shadow: 5px 7px 0px #1C1C1C;
+}
+
+/* Alternate organic border radius */
+.hand-card-alt {
+  border: 3px solid #1C1C1C;
+  border-radius: 20px 255px 20px 255px/255px 20px 255px 20px;
+  background: var(--paper-card);
+  box-shadow: 4px 4px 0px #1C1C1C;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.hand-card-alt:hover {
+  transform: translateY(-2px) rotate(0.3deg);
+  box-shadow: 6px 7px 0px #1C1C1C;
+}
+
+/* Wobble organic card */
+.hand-card-wobble {
+  border: 3px solid #1C1C1C;
+  border-radius: 240px 12px 230px 14px/14px 235px 12px 245px;
+  background: var(--paper-card);
+  box-shadow: 4px 5px 0px #1C1C1C;
+  position: relative;
+}
+
+/* Translucent Washi Tape accents */
+.washi-tape {
+  position: absolute;
+  height: 22px;
+  background: rgba(245, 237, 218, 0.85);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-left: 2px dashed rgba(28,28,28,0.25);
+  border-right: 2px dashed rgba(28,28,28,0.25);
+  z-index: 20;
+  pointer-events: none;
+  backdrop-filter: blur(1px);
+}
+.washi-tape-top {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 90px;
+}
+.washi-tape-corner {
+  top: -8px;
+  right: -10px;
+  transform: rotate(35deg);
+  width: 70px;
+}
+
+/* Ink stamp badge */
+.ink-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #1C1C1C;
+  border-radius: 8px;
+  padding: 0.25rem 0.65rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 1px 2px 0px rgba(28,28,28,0.6);
+}
+
+.ink-stamp-coral {
+  border-color: #FF6B6B;
+  color: #DC2626;
+  transform: rotate(2deg);
+  box-shadow: 1px 2px 0px rgba(220,38,38,0.4);
+}
+
+.ink-stamp-cyan {
+  border-color: #0284C7;
+  color: #0369A1;
+  transform: rotate(-3deg);
+  box-shadow: 1px 2px 0px rgba(2,132,199,0.4);
+}
+
+/* Blueprint Grid */
+.blueprint-grid {
+  background-color: rgba(255, 255, 255, 0.85);
+  background-image: 
+    linear-gradient(rgba(28, 28, 28, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 28, 28, 0.06) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* =========================================================
+   3. CHARCOAL DRAWING REVEAL & INK ANIMATIONS
+   ========================================================= */
+
+.headline-slab {
+  font-family: 'Architects Daughter', cursive;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+/* Animated charcoal pencil underline */
+.charcoal-underline {
+  position: relative;
+  display: inline-block;
+}
+.charcoal-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 4px;
+  background: #1C1C1C;
+  border-radius: 125px 5px 85px 4px/4px 75px 5px 125px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.charcoal-underline.drawn::after {
+  transform: scaleX(1);
+}
+
+/* Sketch input fields */
+.sketch-input {
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #1C1C1C;
+  outline: none;
+  font-family: inherit;
+  padding: 0.65rem 0.85rem;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  width: 100%;
+  box-shadow: 2px 2px 0px #1C1C1C;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.sketch-input:focus {
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0px #1C1C1C;
+  background: #FFFFFF;
+}
+
+.sketch-underline {
+  height: 3px;
+  background: transparent;
+  position: relative;
+}
+.sketch-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4F1F9 10%, #1C1C1C 50%, #FF6B6B 90%);
+  border-radius: 4px;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.sketch-underline.active::after {
+  transform: scaleX(1);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Cassette tape spin */
+@keyframes tapeSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.tape-spin {
+  animation: tapeSpin 4s linear infinite;
+}
+
+.tape-paused {
+  animation-play-state: paused;
+}
+
+/* Vector path line for travel animation */
+.travel-path-line {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.1s linear;
+}
