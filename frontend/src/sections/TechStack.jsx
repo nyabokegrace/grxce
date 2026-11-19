@@ -1,247 +1,370 @@
-import React, { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  editorialEase,
+  tactileSpring,
+  fadeUp,
+  staggerContainer,
+  staggerChild
+} from '../utils/motion'
+import {
+  Code2,
+  Palette,
+  Megaphone,
+  Briefcase,
+  Layers,
+  Sparkles,
+  ArrowRight,
+  Workflow,
+  Cpu,
+  Terminal,
+  Database,
+  Radio,
+  FileCode,
+  ShieldCheck,
+  CheckCircle2
+} from 'lucide-react'
 
-gsap.registerPlugin(ScrollTrigger)
-
-const SKILL_CATEGORIES = [
-  {
-    category: 'Creative Engineering & Front-End',
-    badge: 'INTERACTIVE',
-    skills: [
-      { name: 'React (Next.js & Vite)', pct: 94, note: 'State management, custom hooks, micro-frontends' },
-      { name: 'GSAP & ScrollTrigger', pct: 90, note: 'Scrollytelling, physics easing, tactile motion' },
-      { name: 'TailwindCSS & CSS Architecture', pct: 96, note: 'Custom design systems, tactile shaders & textures' },
-      { name: 'TypeScript & Modern JS', pct: 92, note: 'Type-safe contracts, async pipelines' }
-    ]
-  },
-  {
-    category: 'Systems, Hardware & IoT Integration',
-    badge: 'ARCHITECTURE',
-    skills: [
-      { name: 'Go (Golang)', pct: 82, note: 'Concurrent microservices, API gateways, daemon alert engines' },
-      { name: 'IoT Telemetry & Sensors', pct: 84, note: 'Ultrasonic arrays, ESP32 microcontrollers, serial streams' },
-      { name: 'Copernicus Earth Observation', pct: 78, note: 'Sentinel satellite data mapping & geospatial GIS' },
-      { name: 'Offline-First & SMS Daemons', pct: 88, note: 'GSM modem alerts, zero-bandwidth fallback architectures' }
-    ]
-  },
-  {
-    category: 'Brand Strategy & UI/UX Systems',
-    badge: 'DESIGN GOVERNANCE',
-    skills: [
-      { name: 'Brand Identity Strategy', pct: 95, note: 'Market positioning, monogram creation, tone of voice' },
-      { name: 'UI/UX & Design Systems', pct: 92, note: 'Design tokens, Figma design components, accessibility' },
-      { name: 'Digital Marketing & Conversion', pct: 86, note: 'SEO pipelines, consultation funnels, user research' },
-      { name: 'Legal & Enterprise Portals', pct: 89, note: 'Automated intake workflows, scheduling pipelines' }
-    ]
-  }
-]
-
+// -------------------------------------------------------------------------
+// MAIN TECH STACK COMPONENT
+// -------------------------------------------------------------------------
 export default function TechStack() {
-  const containerRef = useRef(null)
-  const barRefs = useRef([])
-  const quoteRef = useRef(null)
+  const [activePillar, setActivePillar] = useState(0)
+  const [selectedFilter, setSelectedFilter] = useState('all')
 
-  useEffect(() => {
-    const el = containerRef.current
-    const ctx = gsap.context(() => {
-      // 1. Kinetic headline cycling
-      const words = gsap.utils.toArray('#kineticWords span')
-      gsap.set(words, { autoAlpha: 0, y: 15 })
-      const kw = gsap.timeline({
-        repeat: -1,
-        repeatDelay: 0.8,
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%'
-        }
-      })
-      words.forEach((w) => {
-        kw.to(w, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
-          .to(w, { autoAlpha: 0, y: -15, duration: 0.5, delay: 1.2 })
-      })
+  const pillars = [
+    {
+      id: 'software',
+      title: 'Software Developer',
+      icon: <Code2 className="w-5 h-5 text-charcoal" />,
+      tagline: 'Full-Stack Web & Concurrent Backend Systems',
+      description:
+        'Full-stack web platforms, Go backend architectures, REST APIs, database modeling, and kinetic frontend engineering. I write clean, resilient code that bridges complex backend data pipelines with fluid, human-centered user experiences.',
+      strengths: [
+        'Concurrent microservices & API design in Go (Golang)',
+        'Kinetic, high-performance interfaces with React, Next.js & Framer Motion',
+        'Relational & document database schemas (PostgreSQL, MongoDB, SQLite)',
+        'Containerized deployment workflows with Docker, Linux environments & Git'
+      ],
+      tools: ['Go', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'MongoDB', 'SQLite', 'Docker', 'Linux', 'Git'],
+      synergy: 'Builds the actual product that delivers on brand promises without technical debt.'
+    },
+    {
+      id: 'brand',
+      title: 'Brand Strategist',
+      icon: <Palette className="w-5 h-5 text-charcoal" />,
+      tagline: 'Visual Identity Systems & Product Narrative',
+      description:
+        'Visual identity systems, brand positioning, product naming, and translating professional services into memorable digital experiences. I clarify who a product is for, why it matters, and how every visual touchpoint conveys authority.',
+      strengths: [
+        'End-to-end brand identity architecture from monograms to governance',
+        'Design systems and component token hierarchies in Figma',
+        'Strategic product naming, voice tone calibration, and messaging frameworks',
+        'Bridging corporate enterprise dignity with modern web craftsmanship'
+      ],
+      tools: ['Figma', 'Canva', 'Design Systems', 'Brand Storytelling', 'Typography Systems', 'Design Tokens'],
+      synergy: 'Ensures code isn’t just functional, but deeply resonant, dignified, and memorable.'
+    },
+    {
+      id: 'marketing',
+      title: 'Digital Marketer',
+      icon: <Megaphone className="w-5 h-5 text-charcoal" />,
+      tagline: 'Audience Funnels, Short-Form Video & Campaign Analytics',
+      description:
+        'High-converting social media marketing, short-form video strategy across TikTok, Instagram, and Facebook, and turning organic views into paying retainers. I translate legal education and tech products into viral clarity.',
+      strengths: [
+        'Short-form legal & educational video funnels on TikTok (+180% consultations)',
+        'Multi-platform Meta advertising and organic engagement optimization',
+        'Data-informed conversion funnels and intake latency reduction',
+        'High-retention visual assets and editorial campaign direction'
+      ],
+      tools: ['TikTok Funnels', 'Instagram Campaigns', 'Meta Ads', 'Analytics', 'Conversion Copy', 'Content Strategy'],
+      synergy: 'Connects the product with its users so software doesn’t launch into an empty room.'
+    },
+    {
+      id: 'executive',
+      title: 'Executive Assistant',
+      icon: <Briefcase className="w-5 h-5 text-charcoal" />,
+      tagline: 'High-Trust Operations, Legal Tech Triage & Scheduling',
+      description:
+        'High-velocity operational coordination, litigation calendar management, confidential documentation, and executive support. I keep fast-moving practices and builder teams structured, focused, and frictionless.',
+      strengths: [
+        'Conflict-of-interest screening and legal case file triage',
+        'Complex calendar synchronization across court dates and corporate retainers',
+        'Confidential executive documentation and stakeholder correspondence',
+        'Operational workflow automation and operational backlog clearing'
+      ],
+      tools: ['Litigation Management', 'Calendar Sync', 'Triage Systems', 'Legal Ops', 'Google Workspace', 'Notion'],
+      synergy: 'Provides the operational scaffolding that allows creative and engineering work to compound.'
+    }
+  ]
 
-      // 2. Bar fill animations with staggered ink fade
-      barRefs.current.forEach((bar) => {
-        if (!bar) return
-        const targetWidth = bar.getAttribute('data-pct') || '0'
-        gsap.fromTo(
-          bar,
-          { width: '0%' },
-          {
-            width: `${targetWidth}%`,
-            duration: 1.2,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: bar,
-              start: 'top 90%'
-            }
-          }
-        )
-      })
+  const toolCategories = [
+    { key: 'all', name: 'All Stack' },
+    { key: 'engineering', name: 'Engineering & Systems' },
+    { key: 'design', name: 'Brand & UX Design' },
+    { key: 'marketing', name: 'Growth & Funnels' },
+    { key: 'operations', name: 'Executive Operations' }
+  ]
 
-      // 3. Staggered reveal of skill cards
-      gsap.fromTo(
-        '.tech-category-card',
-        { opacity: 0, y: 30, filter: 'blur(3px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 0.6,
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 75%'
-          }
-        }
-      )
+  const categorizedTools = [
+    { name: 'Go (Golang)', cat: 'engineering', badge: 'Concurrency' },
+    { name: 'JavaScript (ES6+)', cat: 'engineering', badge: 'Core' },
+    { name: 'TypeScript', cat: 'engineering', badge: 'Type-Safe' },
+    { name: 'React', cat: 'engineering', badge: 'Frontend' },
+    { name: 'Next.js', cat: 'engineering', badge: 'SSR / Edge' },
+    { name: 'Tailwind CSS', cat: 'engineering', badge: 'Styling' },
+    { name: 'Node.js', cat: 'engineering', badge: 'Runtime' },
+    { name: 'PostgreSQL', cat: 'engineering', badge: 'Database' },
+    { name: 'MongoDB', cat: 'engineering', badge: 'NoSQL' },
+    { name: 'SQLite', cat: 'engineering', badge: 'Embedded' },
+    { name: 'Docker', cat: 'engineering', badge: 'Containers' },
+    { name: 'Linux', cat: 'engineering', badge: 'Kernel / OS' },
+    { name: 'Git', cat: 'engineering', badge: 'VCS' },
+    { name: 'Figma', cat: 'design', badge: 'UI/UX Design' },
+    { name: 'Canva', cat: 'design', badge: 'Brand Assets' },
+    { name: 'Design Systems', cat: 'design', badge: 'Tokens & UI' },
+    { name: 'Brand Storytelling', cat: 'design', badge: 'Narrative' },
+    { name: 'TikTok Funnels', cat: 'marketing', badge: 'Short-Form Video' },
+    { name: 'Instagram Campaigns', cat: 'marketing', badge: 'Visual Storytelling' },
+    { name: 'Facebook Outreach', cat: 'marketing', badge: 'Community' },
+    { name: 'Audience Funnels', cat: 'marketing', badge: 'Consultations' },
+    { name: 'Calendar Orchestration', cat: 'operations', badge: 'Executive Ops' },
+    { name: 'Client Intake Triage', cat: 'operations', badge: 'Legal Tech' },
+    { name: 'Process Automation', cat: 'operations', badge: 'Efficiency' },
+    { name: 'Executive Documentation', cat: 'operations', badge: 'High-Trust' }
+  ]
 
-      // 4. Parallax watermark quote
-      if (quoteRef.current) {
-        gsap.fromTo(
-          quoteRef.current,
-          { x: -20, opacity: 0.2 },
-          {
-            x: 20,
-            opacity: 0.85,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: quoteRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.2
-            }
-          }
-        )
-      }
-    }, containerRef)
-
-    return () => ctx.revert()
-  }, [])
+  const filteredTools =
+    selectedFilter === 'all'
+      ? categorizedTools
+      : categorizedTools.filter((t) => t.cat === selectedFilter)
 
   return (
-    <section id="techstack" ref={containerRef} className="py-16 md:py-24 relative">
-      {/* Background Watermark */}
-      <div className="absolute top-1/4 -right-8 pointer-events-none select-none opacity-[0.035] text-8xl md:text-9xl font-headline hidden xl:block">
-        ENGINEERING
-      </div>
+    <section id="techstack" className="py-20 md:py-28 relative">
+      {/* Background Architectural Grid (Rows & Columns) */}
+      <div className="absolute inset-0 architectural-grid opacity-65 pointer-events-none -z-10" />
 
-      {/* Kinetic Headline Header */}
-      <div className="mb-10 text-left">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="ink-stamp ink-stamp-cyan">Section 04</span>
-          <span className="text-xs font-mono tracking-widest uppercase text-pencil">
-            Technical Proficiency & Design Disciplines
-          </span>
-        </div>
-
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <div id="kineticWords" className="relative text-4xl sm:text-5xl md:text-6xl font-headline h-14 sm:h-16 overflow-hidden">
-              <span className="absolute left-0 text-charcoal">Strategize.</span>
-              <span className="absolute left-0 text-cyan-800">Architect.</span>
-              <span className="absolute left-0 text-coral">Implement.</span>
-              <span className="absolute left-0 text-charcoal">Optimize.</span>
-            </div>
-            <p className="mt-2 text-pencil text-base md:text-lg font-body max-w-xl">
-              From raw hardware signals to meticulous editorial typography—tools chosen for tactile elegance and reliability.
-            </p>
+      <div className="max-w-6xl mx-auto space-y-16">
+        {/* Section Header */}
+        <div className="text-left">
+          <div className="flex items-center gap-2 mb-2.5">
+            <span className="ink-badge text-[10px] font-bold">[4-PILLAR REINFORCEMENT]</span>
+            <span className="text-xs font-mono text-pencil uppercase tracking-widest font-semibold">
+              Capabilities // Synergy
+            </span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-pencil">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan inline-block border border-charcoal" />
-            <span>Calibrated for Production Quality</span>
-          </div>
-        </div>
-      </div>
-
-      {/* =========================================================
-          INTEGRATED DESIGN QUOTE 3: NEAR UI/UX
-          "Good design is as little design as possible. Less, but better." – Dieter Rams
-         ========================================================= */}
-      <div
-        ref={quoteRef}
-        className="my-10 p-5 relative overflow-hidden hand-card border-2 border-charcoal/30 bg-white/70 rounded-xl shadow-[3px_3px_0px_#1C1C1C]"
-      >
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl text-charcoal font-headline select-none">“</span>
-            <blockquote className="font-scribble text-2xl md:text-3xl text-charcoal leading-snug">
-              Good design is as little design as possible. Less, but better.
-            </blockquote>
-          </div>
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <span className="w-6 h-[1px] bg-pencil/50" />
-            <div className="text-right">
-              <span className="font-mono text-xs uppercase tracking-wider text-charcoal font-bold block">
-                Dieter Rams
-              </span>
-              <span className="font-mono text-[10px] text-pencil">UI/UX & Design Philosophy</span>
-            </div>
-            <span className="ink-stamp text-[9px] px-1.5 py-0.5">MINIMALISM</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Skill Categories Grid */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {SKILL_CATEGORIES.map((cat, catIdx) => (
-          <div
-            key={cat.category}
-            className={`tech-category-card hand-card p-6 flex flex-col justify-between ${
-              catIdx === 1 ? 'hand-card-alt' : catIdx === 2 ? 'hand-card-wobble' : ''
-            }`}
-          >
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-charcoal/20">
-                <span className="font-mono text-[11px] text-pencil tracking-wider uppercase">
-                  Stack 0{catIdx + 1}
-                </span>
-                <span className="ink-stamp text-[9px] px-1.5 py-0.5">{cat.badge}</span>
-              </div>
-
-              <h3 className="text-xl font-headline mb-4 text-charcoal">{cat.category}</h3>
-
-              {/* Skills List */}
-              <div className="space-y-4">
-                {cat.skills.map((skill, sIdx) => {
-                  const globalIdx = catIdx * 4 + sIdx
-                  return (
-                    <div key={skill.name} className="space-y-1">
-                      <div className="flex justify-between items-baseline text-sm">
-                        <span className="font-headline text-charcoal text-base">{skill.name}</span>
-                        <span className="font-mono text-xs text-pencil">{skill.pct}%</span>
-                      </div>
-
-                      {/* Progress Bar with Charcoal Stroke & Ink Fill */}
-                      <div className="w-full bg-paper-dark/80 h-3 rounded-md border border-charcoal/30 overflow-hidden relative">
-                        <div
-                          ref={(el) => (barRefs.current[globalIdx] = el)}
-                          data-pct={skill.pct}
-                          className="h-full bg-cyan transition-all duration-300"
-                          style={{
-                            width: '0%',
-                            background: catIdx === 0 ? '#D4F1F9' : catIdx === 1 ? '#FEF08A' : '#FF6B6B'
-                          }}
-                        />
-                      </div>
-
-                      <div className="text-[11px] font-mono text-pencil leading-tight">
-                        {skill.note}
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
+              <h2 className="font-headline font-bold text-5xl sm:text-6xl md:text-7xl text-charcoal tracking-tight">
+                4-Pillar Roles & Unified Toolkit
+              </h2>
+              <p className="font-sans text-base sm:text-lg text-charcoal/80 max-w-2xl mt-2 leading-relaxed">
+                Rather than working in silos, my four roles reinforce each other—turning raw code into branded products,
+                distributing them to real audiences, and keeping operations flawlessly organized.
+              </p>
             </div>
 
-            <div className="mt-6 pt-3 border-t border-charcoal/15 flex items-center justify-between text-[11px] font-mono text-pencil">
-              <span>Discipline #{catIdx + 1}</span>
-              <span className="font-scribble text-sm text-charcoal">verified production skill</span>
+            <div className="flex items-center gap-2 font-mono text-xs text-charcoal font-bold">
+              <span>[OPERATOR SYNERGY]</span>
             </div>
           </div>
-        ))}
+        </div>
+
+        {/* Scrollytelling Interactive Pillar Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          {pillars.map((pillar, idx) => {
+            const isSelected = activePillar === idx
+            return (
+              <motion.button
+                key={pillar.id}
+                onClick={() => setActivePillar(idx)}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={tactileSpring}
+                data-cursor="PILLAR // ROLE"
+                className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all relative overflow-hidden flex flex-col justify-between cursor-pointer ${
+                  isSelected
+                    ? 'bg-charcoal text-paper border-charcoal shadow-tactile-solid'
+                    : 'bg-paper-light text-charcoal border-charcoal/15 hover:border-charcoal/40 shadow-sm'
+                }`}
+              >
+                {/* Washi tape accent on active */}
+                {isSelected && <div className="washi-tape-pink absolute top-0 left-4 w-14 h-3.5 -rotate-2" />}
+
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="p-2 rounded-lg bg-white/10 border border-current/15">
+                      {pillar.icon}
+                    </span>
+                    <span className="font-mono text-[10px] tracking-wider opacity-60">
+                      0{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="font-headline font-bold text-2xl sm:text-3xl leading-snug">
+                    {pillar.title}
+                  </h3>
+                </div>
+
+                <div className="mt-4 pt-2 border-t border-current/15 flex items-center justify-between text-[10px] font-mono">
+                  <span className="opacity-75 truncate">{pillar.tagline.split('&')[0]}</span>
+                  <span className={`font-bold ${isSelected ? 'text-paper' : 'text-pencil'}`}>
+                    {isSelected ? '[ACTIVE]' : '[VIEW]'}
+                  </span>
+                </div>
+              </motion.button>
+            )
+          })}
+        </div>
+
+        {/* Selected Pillar Deep Dive Card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activePillar}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.4, ease: editorialEase }}
+            className="editorial-card p-6 sm:p-10 bg-white border-2 border-charcoal/20 relative overflow-hidden text-left"
+          >
+            <div className="grid lg:grid-cols-12 gap-8 items-start">
+              {/* Left Column: Narrative & Strengths */}
+              <div className="lg:col-span-7 space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] uppercase tracking-wider bg-paper-pink text-charcoal border border-scrunch-pink-dark font-bold">
+                      PILLAR 0{activePillar + 1}
+                    </span>
+                    <span className="font-mono text-xs text-pencil uppercase tracking-wider font-semibold">
+                      {pillars[activePillar].tagline}
+                    </span>
+                  </div>
+
+                  <h3 className="font-headline font-bold text-4xl sm:text-5xl text-charcoal">
+                    {pillars[activePillar].title}
+                  </h3>
+                  <p className="font-sans text-base text-charcoal/80 mt-2.5 leading-relaxed">
+                    {pillars[activePillar].description}
+                  </p>
+                </div>
+
+                {/* Core Strengths */}
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-pencil font-bold mb-3 flex items-center gap-2">
+                    <span className="font-mono text-charcoal font-bold">▸</span>
+                    Key Capabilities & Outcomes
+                  </h4>
+                  <div className="space-y-2">
+                    {pillars[activePillar].strengths.map((strength, sIdx) => (
+                      <div
+                        key={sIdx}
+                        className="p-3 rounded-lg bg-paper-light border border-charcoal/10 flex items-start gap-2.5"
+                      >
+                        <span className="font-mono text-xs text-charcoal font-bold mt-0.5">▸</span>
+                        <span className="font-sans text-sm text-charcoal/90">{strength}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Synergy & Tools */}
+              <div className="lg:col-span-5 space-y-6">
+                {/* Cross-Discipline Synergy Box with Pink Paper Background */}
+                <div className="p-5 rounded-2xl bg-paper-pink/40 border border-scrunch-pink-dark/50 space-y-2.5 relative">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-charcoal">
+                    <Workflow className="w-4 h-4 text-charcoal" />
+                    <span>How This Reinforces The Other Pillars</span>
+                  </div>
+                  <p className="font-sans text-sm text-charcoal/85 leading-relaxed">
+                    "{pillars[activePillar].synergy}"
+                  </p>
+                </div>
+
+                {/* Primary Tools in This Domain */}
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-pencil font-bold mb-2.5">
+                    Domain Toolkit
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {pillars[activePillar].tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="px-3 py-1.5 rounded-lg bg-paper-light border border-charcoal/20 font-mono text-xs text-charcoal font-semibold shadow-sm"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stamped Seal Note */}
+                <div className="pt-3 border-t border-charcoal/10 flex items-center justify-between text-xs font-mono text-pencil">
+                  <span>DISCIPLINE CALIBRATED</span>
+                  <span className="font-headline font-bold text-xl text-charcoal">
+                    Multi-disciplinary operator
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Categorized Interactive Toolkit Filter */}
+        <div className="space-y-6 pt-4 text-left">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-charcoal/15">
+            <div>
+              <h3 className="font-headline font-bold text-3xl sm:text-4xl text-charcoal">
+                Comprehensive Toolkit & Technology Stack
+              </h3>
+              <p className="font-mono text-xs text-pencil uppercase tracking-wider mt-0.5 font-semibold">
+                Filtered by domain and operational workflow
+              </p>
+            </div>
+
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap gap-1.5">
+              {toolCategories.map((cat) => (
+                <button
+                  key={cat.key}
+                  onClick={() => setSelectedFilter(cat.key)}
+                  data-cursor="FILTER ✦"
+                  className={`px-3 py-1 rounded-full text-xs font-mono transition-all font-semibold cursor-pointer ${
+                    selectedFilter === cat.key
+                      ? 'bg-charcoal text-paper font-bold shadow-sm'
+                      : 'bg-paper-light text-charcoal hover:bg-paper-dark'
+                  }`}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Interactive Tools Badges Grid */}
+          <motion.div layout className="flex flex-wrap gap-2.5">
+            <AnimatePresence>
+              {filteredTools.map((tool) => (
+                <motion.div
+                  key={tool.name}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={tactileSpring}
+                  data-cursor="TOOL // STACK"
+                  className="px-3.5 py-2 rounded-xl bg-paper-light border-2 border-charcoal/15 flex items-center gap-2 text-xs font-mono text-charcoal shadow-sm hover:border-charcoal hover:bg-white transition-all cursor-default"
+                >
+                  <span className="font-semibold">{tool.name}</span>
+                  <span className="text-[10px] text-pencil opacity-70">[{tool.badge}]</span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -3,286 +3,412 @@
 @tailwind utilities;
 
 :root {
-  --sketch-charcoal: #1C1C1C;
-  --paper-bg: #F4F1EA;
-  --paper-card: rgba(254, 252, 248, 0.9);
-  --margin-red: rgba(224, 93, 93, 0.28);
+  --color-paper: #FAF7F2;
+  --color-paper-rose: #FAF4F2;
+  --color-paper-card: rgba(253, 251, 247, 0.94);
+  --color-charcoal: #191817;
+  --color-coral: #E05D5D;
 }
 
 html, body, #root {
   min-height: 100%;
 }
 
-body {
-  background-color: var(--paper-bg);
-  color: var(--sketch-charcoal);
-  font-family: 'Patrick Hand', system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
-  position: relative;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
+/* Hide scrollbar for Chrome, Safari, Opera, Edge, Firefox */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  background-color: var(--color-paper);
+  background-image: 
+    linear-gradient(to right, rgba(25, 24, 23, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(25, 24, 23, 0.055) 1px, transparent 1px),
+    linear-gradient(to right, rgba(240, 146, 165, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 146, 165, 0.14) 1px, transparent 1px),
+    radial-gradient(circle at 50% 10%, rgba(255, 181, 197, 0.22), transparent 50%),
+    radial-gradient(circle at 88% 50%, rgba(246, 196, 83, 0.14), transparent 45%),
+    radial-gradient(circle at 12% 75%, rgba(240, 146, 165, 0.18), transparent 50%);
+  background-size: 28px 28px, 28px 28px, 112px 112px, 112px 112px, auto, auto, auto;
+  background-attachment: scroll, scroll, scroll, scroll, fixed, fixed, fixed;
+  color: var(--color-charcoal);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
 /* =========================================================
-   1. PREMIUM GRAINY PAPER FIBER OVERLAY
+   1. ARCHITECTURAL CANVAS & FINE PAPER FIBER OVERLAY
    ========================================================= */
 
-/* Authentic sketchbook paper grain fiber overlay */
+/* Architectural drafting line grid with clear rows and columns */
+.architectural-grid {
+  background-image: 
+    linear-gradient(to right, rgba(25, 24, 23, 0.065) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(25, 24, 23, 0.065) 1px, transparent 1px),
+    linear-gradient(to right, rgba(240, 146, 165, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 146, 165, 0.16) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px, 112px 112px, 112px 112px;
+}
+
+/* Dark architectural line grid with clear rows and columns (for preloader / dark panels) */
+.dark-architectural-grid {
+  background-image: 
+    linear-gradient(to right, rgba(250, 247, 242, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(250, 247, 242, 0.09) 1px, transparent 1px),
+    linear-gradient(to right, rgba(240, 146, 165, 0.24) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 146, 165, 0.24) 1px, transparent 1px);
+  background-size: 32px 32px, 32px 32px, 128px 128px, 128px 128px;
+}
+
+/* Tactile Pink Washi Tape & Highlighter Accents */
+.washi-tape-pink {
+  background: rgba(255, 181, 197, 0.9);
+  border: 1px dashed rgba(240, 146, 165, 0.85);
+  box-shadow: 0 1px 4px rgba(25, 24, 23, 0.08);
+}
+
+.pink-highlighter {
+  background: linear-gradient(104deg, rgba(255, 181, 197, 0) 1%, rgba(255, 181, 197, 0.5) 4%, rgba(255, 181, 197, 0.65) 8%, rgba(255, 181, 197, 0.45) 92%, rgba(255, 181, 197, 0) 99%);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.pink-sticky-note {
+  background: #FCE7EB;
+  border: 2px solid #F092A5;
+  box-shadow: 3px 4px 0px #F092A5;
+}
+
+/* Fine paper grain fiber texture overlay */
 body::before {
   content: '';
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 999;
-  opacity: 0.065;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
   mix-blend-mode: multiply;
 }
 
-/* Fibrous paper tooth & subtle edge vignette */
+/* Subtle editorial vignette */
 body::after {
   content: '';
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 998;
-  opacity: 0.04;
-  background: 
-    radial-gradient(ellipse at center, transparent 45%, rgba(60, 40, 20, 0.3) 100%),
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.015) 2px, rgba(0, 0, 0, 0.015) 4px);
+  opacity: 0.035;
+  background: radial-gradient(ellipse at 50% 40%, transparent 60%, rgba(25, 24, 23, 0.3) 100%);
   mix-blend-mode: multiply;
 }
 
-/* Authentic sketchbook spine / margin line on large screens */
-.sketchbook-spine {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 2rem;
-  width: 2px;
-  background: var(--margin-red);
-  z-index: 10;
-  pointer-events: none;
-  display: none;
-}
-@media (min-width: 1280px) {
-  .sketchbook-spine {
-    display: block;
-  }
+/* =========================================================
+   2. TACTILE EDITORIAL CARDS & PAPER TEXTURES
+   ========================================================= */
+
+.editorial-card {
+  background: var(--color-paper-card);
+  border: 1.5px solid rgba(25, 24, 23, 0.2);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px #191817;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
 }
 
-.binder-hole {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid rgba(28, 28, 28, 0.35);
-  background: #E8E2D2;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.25);
+.editorial-card:hover {
+  box-shadow: 6px 6px 0px #191817;
+  border-color: #191817;
+}
+
+.tactile-card {
+  background: #FFFFFF;
+  border: 1.5px solid #191817;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0px #191817;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+  position: relative;
+}
+
+.tactile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px #191817;
+}
+
+/* Translucent masking tape / washi tape accents */
+.masking-tape {
+  position: absolute;
+  height: 22px;
+  background: rgba(246, 239, 225, 0.82);
+  box-shadow: 0 1px 3px rgba(25, 24, 23, 0.08);
+  border-left: 1.5px dashed rgba(25, 24, 23, 0.2);
+  border-right: 1.5px dashed rgba(25, 24, 23, 0.2);
+  z-index: 20;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+}
+
+.masking-tape-top {
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 85px;
+}
+
+.masking-tape-corner {
+  top: -10px;
+  right: -10px;
+  transform: rotate(35deg);
+  width: 65px;
+}
+
+.masking-tape-corner-left {
+  top: -10px;
+  left: -10px;
+  transform: rotate(-35deg);
+  width: 65px;
 }
 
 /* =========================================================
-   2. ASYMMETRICAL HAND-DRAWN BORDERS & SKETCH CARDS
+   3. STAMPED SEALS & INK METADATA BADGES
    ========================================================= */
 
-/* Primary hand-drawn card with 3px solid charcoal stroke */
-.hand-card {
-  border: 3px solid #1C1C1C;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  background: var(--paper-card);
-  box-shadow: 3px 4px 0px #1C1C1C;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+.stamped-seal {
   position: relative;
-}
-
-.hand-card:hover {
-  transform: translateY(-2px) rotate(-0.2deg);
-  box-shadow: 5px 7px 0px #1C1C1C;
-}
-
-/* Alternate organic border radius */
-.hand-card-alt {
-  border: 3px solid #1C1C1C;
-  border-radius: 20px 255px 20px 255px/255px 20px 255px 20px;
-  background: var(--paper-card);
-  box-shadow: 4px 4px 0px #1C1C1C;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  position: relative;
-}
-
-.hand-card-alt:hover {
-  transform: translateY(-2px) rotate(0.3deg);
-  box-shadow: 6px 7px 0px #1C1C1C;
-}
-
-/* Wobble organic card */
-.hand-card-wobble {
-  border: 3px solid #1C1C1C;
-  border-radius: 240px 12px 230px 14px/14px 235px 12px 245px;
-  background: var(--paper-card);
-  box-shadow: 4px 5px 0px #1C1C1C;
-  position: relative;
-}
-
-/* Translucent Washi Tape accents */
-.washi-tape {
-  position: absolute;
-  height: 22px;
-  background: rgba(245, 237, 218, 0.85);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  border-left: 2px dashed rgba(28,28,28,0.25);
-  border-right: 2px dashed rgba(28,28,28,0.25);
-  z-index: 20;
-  pointer-events: none;
-  backdrop-filter: blur(1px);
-}
-.washi-tape-top {
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1.5deg);
-  width: 90px;
-}
-.washi-tape-corner {
-  top: -8px;
-  right: -10px;
-  transform: rotate(35deg);
-  width: 70px;
-}
-
-/* Ink stamp badge */
-.ink-stamp {
-  display: inline-flex;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 2px dashed rgba(224, 93, 93, 0.7);
+  display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px dashed #1C1C1C;
-  border-radius: 8px;
-  padding: 0.25rem 0.65rem;
+  text-align: center;
   font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  transform: rotate(-2deg);
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 1px 2px 0px rgba(28,28,28,0.6);
+  color: #E05D5D;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 8px rgba(224, 93, 93, 0.15);
+  transform: rotate(-8deg);
+  pointer-events: none;
+  user-select: none;
 }
 
-.ink-stamp-coral {
-  border-color: #FF6B6B;
-  color: #DC2626;
-  transform: rotate(2deg);
-  box-shadow: 1px 2px 0px rgba(220,38,38,0.4);
+.ink-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(25, 24, 23, 0.18);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.85);
+  color: #191817;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
 }
 
-.ink-stamp-cyan {
-  border-color: #0284C7;
-  color: #0369A1;
-  transform: rotate(-3deg);
-  box-shadow: 1px 2px 0px rgba(2,132,199,0.4);
+.ink-badge:hover {
+  border-color: #191817;
+  transform: translateY(-1px);
 }
 
-/* Blueprint Grid */
-.blueprint-grid {
-  background-color: rgba(255, 255, 255, 0.85);
+.ink-badge-live {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(224, 93, 93, 0.4);
+  color: #C8553D;
+  box-shadow: 0 2px 8px rgba(224, 93, 93, 0.1);
+}
+
+/* =========================================================
+   4. EDITORIAL BROWSER & DEVICE FRAMES (REALISTIC & TACTILE)
+   ========================================================= */
+
+.macos-browser {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(25, 24, 23, 0.14);
+  box-shadow: 0 20px 45px -15px rgba(25, 24, 23, 0.12), 0 0 0 1px rgba(25, 24, 23, 0.04);
+  overflow: hidden;
+  position: relative;
+}
+
+.macos-header {
+  background: #F3F1EC;
+  border-bottom: 1px solid rgba(25, 24, 23, 0.1);
+  padding: 0.65rem 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.dark-workstation {
+  background: #0B0F17;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 24px rgba(34, 197, 94, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.dark-workstation-header {
+  background: rgba(11, 15, 23, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.65rem 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.architectural-preview-grid {
   background-image: 
-    linear-gradient(rgba(28, 28, 28, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(28, 28, 28, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(25, 24, 23, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(25, 24, 23, 0.06) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
+/* Sleek monochrome window pill */
+.window-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #57534E;
+}
+
+.macos-url-bar {
+  flex: 1;
+  max-width: 360px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(25, 24, 23, 0.1);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: #57534E;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Mobile device frame */
+.mobile-device-frame {
+  border: 8px solid #191817;
+  border-radius: 36px;
+  box-shadow: 0 25px 60px -15px rgba(25, 24, 23, 0.22);
+  overflow: hidden;
+  background: #191817;
+  position: relative;
+}
+
+.mobile-notch {
+  width: 90px;
+  height: 18px;
+  background: #191817;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+}
+
 /* =========================================================
-   3. CHARCOAL DRAWING REVEAL & INK ANIMATIONS
+   5. REALISTIC EDITORIAL PHOTO CARD
    ========================================================= */
 
-.headline-slab {
-  font-family: 'Architects Daughter', cursive;
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-}
-
-/* Animated charcoal pencil underline */
-.charcoal-underline {
-  position: relative;
-  display: inline-block;
-}
-.charcoal-underline::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -4px;
-  height: 4px;
-  background: #1C1C1C;
-  border-radius: 125px 5px 85px 4px/4px 75px 5px 125px;
-  transform-origin: left center;
-  transform: scaleX(0);
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.charcoal-underline.drawn::after {
-  transform: scaleX(1);
-}
-
-/* Sketch input fields */
-.sketch-input {
-  background: rgba(255, 255, 255, 0.85);
-  border: 2px solid #1C1C1C;
-  outline: none;
-  font-family: inherit;
-  padding: 0.65rem 0.85rem;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  width: 100%;
-  box-shadow: 2px 2px 0px #1C1C1C;
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-}
-
-.sketch-input:focus {
-  transform: translateY(-2px);
-  box-shadow: 4px 5px 0px #1C1C1C;
+.editorial-photo-card {
   background: #FFFFFF;
+  padding: 0.75rem 0.75rem 1.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(25, 24, 23, 0.1);
+  box-shadow: 0 22px 45px -10px rgba(25, 24, 23, 0.16), 0 4px 12px rgba(25, 24, 23, 0.08);
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.sketch-underline {
-  height: 3px;
-  background: transparent;
+.editorial-photo-card:hover {
+  transform: translateY(-4px) rotate(0deg) !important;
+  box-shadow: 0 30px 65px -12px rgba(25, 24, 23, 0.22), 0 8px 20px rgba(25, 24, 23, 0.1);
+}
+
+/* =========================================================
+   6. 35MM CINEMA FILM-STRIP BORDER
+   ========================================================= */
+
+.film-strip-border {
+  border-top: 14px solid #191817;
+  border-bottom: 14px solid #191817;
   position: relative;
 }
-.sketch-underline::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #D4F1F9 10%, #1C1C1C 50%, #FF6B6B 90%);
-  border-radius: 4px;
-  transform-origin: left center;
-  transform: scaleX(0);
-}
-.sketch-underline.active::after {
-  transform: scaleX(1);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+
+.film-sprockets {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #FFFFFF 0px,
+    #FFFFFF 8px,
+    transparent 8px,
+    transparent 20px
+  );
+  height: 6px;
+  width: 100%;
 }
 
-/* Cassette tape spin */
-@keyframes tapeSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* =========================================================
+   7. LIVE ECG WAVEFORM ANIMATION
+   ========================================================= */
+
+@keyframes ecgScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.tape-spin {
-  animation: tapeSpin 4s linear infinite;
+.ecg-stream {
+  animation: ecgScroll 6s linear infinite;
 }
 
-.tape-paused {
-  animation-play-state: paused;
-}
+/* =========================================================
+   8. ACCESSIBILITY & PREFERS-REDUCED-MOTION
+   ========================================================= */
 
-/* Vector path line for travel animation */
-.travel-path-line {
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  transition: stroke-dashoffset 0.1s linear;
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ecg-stream {
+    animation: none !important;
+  }
 }
